@@ -5,6 +5,7 @@ USER SETTINGS
  */
 let numberOfColors = 6;
 let numberOfPins = 4;
+// TODO customize options
 
 const COLOR_POOL = MASTER_COLOR_POOL.slice(0, numberOfColors);
 let colorCounts = {};
@@ -12,26 +13,32 @@ COLOR_POOL.forEach(function(elem) {
     colorCounts[elem] = 0;
 })
 
-let solution = [];
-let blockDuplicates = false; // TODO further weight against duplicates
-while (solution.length < numberOfPins) {
-    let color = COLOR_POOL[Math.floor(Math.random() * COLOR_POOL.length)];
-    let colorCount = colorCounts[color];
-    if (!blockDuplicates && colorCount < 2 || blockDuplicates && colorCount < 1) {
-        solution.push([color, false]);
-        colorCounts[color]++;
+function buildSolution() {
+    let solution = [];
+    let blockDuplicates = false; // TODO further weight against duplicates
+    while (solution.length < numberOfPins) {
+        let color = COLOR_POOL[Math.floor(Math.random() * COLOR_POOL.length)];
+        let colorCount = colorCounts[color];
+        if (!blockDuplicates && colorCount < 2 || blockDuplicates && colorCount < 1) {
+            solution.push([color, false]);
+            colorCounts[color]++;
+        }
+        if (colorCounts[color] === 2) {
+            blockDuplicates = true;
+        }
     }
-    if (colorCounts[color] === 2) {
-        blockDuplicates = true;
-    }
+    return solution;
 }
-
+let solution = buildSolution();
 console.log(solution);
 
-// Build palette based on color pool
-COLOR_POOL.forEach(function (elem) {
-    $("#palette").append(`<div class="pin ${elem}" data-color="${elem}"></div>`);
-})
+function buildPalette() {
+    // Build palette based on color pool
+    COLOR_POOL.forEach(function (elem) {
+        $("#palette").append(`<div class="pin ${elem}" data-color="${elem}"></div>`);
+    })
+}
+buildPalette();
 
 function reset() {
     $("#current .pin-container").children().each(function () {
@@ -110,6 +117,7 @@ function verify() {
             return true;
             // TODO stop entire script
             // TODO row of checkmarks beneath the current guess
+            // TODO reset option
         }
 
         console.log(guess);
@@ -152,11 +160,14 @@ function verify() {
     }
 }
 
-// Create empty pins
-solution.forEach(function () {
-    $("#current .pin-container").append(`<div class="pin"></div>`);
-})
-reset();
+function buildPins() {
+    // Create empty pins
+    solution.forEach(function () {
+        $("#current .pin-container").append(`<div class="pin"></div>`);
+    })
+    reset();
+}
+buildPins();
 
 /* LISTENERS */
 // User selects color from palette

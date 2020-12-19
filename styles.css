@@ -39,7 +39,6 @@ html body .pin.black {
 #guesses .pin, #current .pin {
   height: 100%;
   flex-grow: 1;
-  cursor: pointer;
 }
 
 #guesses {
@@ -121,6 +120,7 @@ html body .pin.black {
   border-top: 1px solid black;
   border-bottom: 1px solid black;
   border-left: 1px solid black;
+  cursor: pointer;
 }
 #current .pin-container .pin:last-child {
   border-right: 1px solid black;
