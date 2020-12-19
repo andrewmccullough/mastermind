@@ -2,6 +2,20 @@
 	box-sizing: border-box;
 }
 
+canvas#confetti {
+	z-index: 1;
+	pointer-events: none;
+	display: block;
+	position: fixed;
+	top: 0;
+	height: 100%;
+	width: 100%;
+}
+
+.swal2-container {
+	font-family: sans-serif;
+}
+
 html {
 	height: 100%;
 	width: 100%;
@@ -188,5 +202,12 @@ $swatch-dimensions: 80px;
 		height: $swatch-dimensions;
 		width: $swatch-dimensions;
 		cursor: pointer;
+	}
+}
+
+#gamebox.frozen {
+
+	* {
+		cursor: default !important;
 	}
 }

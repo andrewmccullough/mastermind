@@ -2,6 +2,20 @@
   box-sizing: border-box;
 }
 
+canvas#confetti {
+  z-index: 1;
+  pointer-events: none;
+  display: block;
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.swal2-container {
+  font-family: sans-serif;
+}
+
 html {
   height: 100%;
   width: 100%;
@@ -166,6 +180,10 @@ html body .pin.black {
   height: 80px;
   width: 80px;
   cursor: pointer;
+}
+
+#gamebox.frozen * {
+  cursor: default !important;
 }
 
 /*# sourceMappingURL=styles.css.map */
