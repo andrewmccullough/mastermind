@@ -68,12 +68,13 @@ html {
 		.pin-container {
 			display: flex;
 			flex-direction: row;
+			flex-shrink: 1;
+			flex-basis: 80%;
 			flex-wrap: nowrap;
 			justify-content: space-between;
 			align-items: flex-start;
 
 			height: 60px;
-			width: 80%;
 
 			.pin {
 				border-top: 1px solid black;
@@ -87,7 +88,8 @@ html {
 		}
 
 		.hint-container {
-			width: 20%;
+			flex-basis: 20%;
+			flex-grow: 1;
 			height: 100%;
 			display: flex;
 			justify-content: flex-start;
