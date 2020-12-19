@@ -1,0 +1,187 @@
+* {
+	box-sizing: border-box;
+}
+
+html {
+	height: 100%;
+	width: 100%;
+
+	body {
+		height: 100%;
+		width: 100%;
+
+		margin: 0;
+
+		.pin.red {
+			background-color: red;
+		}
+		.pin.orange {
+			background-color: orange;
+		}
+		.pin.yellow {
+			background-color: yellow;
+		}
+		.pin.green {
+			background-color: green;
+		}
+		.pin.cyan {
+			background-color: cyan;
+		}
+		.pin.blue {
+			background-color: blue;
+		}
+		.pin.purple {
+			background-color: purple;
+		}
+		.pin.black {
+			background-color: black;
+		}
+	}
+}
+
+#guesses, #current {
+	.pin {
+		height: 100%;
+		flex-grow: 1;
+		cursor: pointer;
+	}
+}
+
+#guesses {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	margin: 0 0 50px 0;
+
+	.guess {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		justify-content: center;
+		align-items: flex-start;
+		height: 60px;
+		margin: 0 0 10px 0;
+		width: 100%;
+		max-width: 1000px;
+
+		.pin-container {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: nowrap;
+			justify-content: space-between;
+			align-items: flex-start;
+
+			height: 60px;
+			width: 80%;
+
+			.pin {
+				border-top: 1px solid black;
+				border-bottom: 1px solid black;
+				border-left: 1px solid black;
+			}
+
+			.pin:last-child {
+				border-right: 1px solid black;
+			}
+		}
+
+		.hint-container {
+			width: 20%;
+			height: 100%;
+			display: flex;
+			justify-content: flex-start;
+			flex-direction: row;
+			flex-wrap: nowrap;
+
+			div {
+				height: 100%;
+				width: 10px;
+				margin: 0 0 0 15px;
+				border: 1px solid black;
+			}
+			.perfect {
+				background-color: orangered;
+			}
+			.loose {
+				background-color: white;
+			}
+		}
+	}
+}
+
+#current {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	.pin-container {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		justify-content: space-between;
+		align-items: flex-start;
+
+		height: 60px;
+		width: 100%;
+		max-width: 1000px;
+
+		.pin {
+			border-top: 1px solid black;
+			border-bottom: 1px solid black;
+			border-left: 1px solid black;
+		}
+		.pin:last-child {
+			border-right: 1px solid black;
+		}
+		.pin.selected {
+			cursor: default;
+			border: 5px solid black;
+		}
+	}
+
+	.button-container {
+		margin: 40px 0 0 0;
+		height: 150px;
+		width: 150px;
+
+		.button {
+			height: 100%;
+			background-color: orangered;
+			border-radius: 50%;
+			display: flex;
+			cursor: pointer;
+
+			justify-content: center;
+			align-items: center;
+
+			p {
+				margin: 0;
+				color: white;
+				font-family: sans-serif;
+				font-style: italic;
+				font-size: 2rem;
+			}
+		}
+	}
+}
+
+$swatch-dimensions: 80px;
+
+#palette {
+	padding: 40px 0;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+
+	.pin {
+		margin: 10px;
+		border-radius: 50%;
+		height: $swatch-dimensions;
+		width: $swatch-dimensions;
+		cursor: pointer;
+	}
+}

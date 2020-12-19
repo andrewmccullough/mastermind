@@ -1,0 +1,167 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  width: 100%;
+}
+html body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+html body .pin.red {
+  background-color: red;
+}
+html body .pin.orange {
+  background-color: orange;
+}
+html body .pin.yellow {
+  background-color: yellow;
+}
+html body .pin.green {
+  background-color: green;
+}
+html body .pin.cyan {
+  background-color: cyan;
+}
+html body .pin.blue {
+  background-color: blue;
+}
+html body .pin.purple {
+  background-color: purple;
+}
+html body .pin.black {
+  background-color: black;
+}
+
+#guesses .pin, #current .pin {
+  height: 100%;
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+#guesses {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 0 0 50px 0;
+}
+#guesses .guess {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  height: 60px;
+  margin: 0 0 10px 0;
+  width: 100%;
+  max-width: 1000px;
+}
+#guesses .guess .pin-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 60px;
+  width: 80%;
+}
+#guesses .guess .pin-container .pin {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+}
+#guesses .guess .pin-container .pin:last-child {
+  border-right: 1px solid black;
+}
+#guesses .guess .hint-container {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+#guesses .guess .hint-container div {
+  height: 100%;
+  width: 10px;
+  margin: 0 0 0 15px;
+  border: 1px solid black;
+}
+#guesses .guess .hint-container .perfect {
+  background-color: orangered;
+}
+#guesses .guess .hint-container .loose {
+  background-color: white;
+}
+
+#current {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#current .pin-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 60px;
+  width: 100%;
+  max-width: 1000px;
+}
+#current .pin-container .pin {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+}
+#current .pin-container .pin:last-child {
+  border-right: 1px solid black;
+}
+#current .pin-container .pin.selected {
+  cursor: default;
+  border: 5px solid black;
+}
+#current .button-container {
+  margin: 40px 0 0 0;
+  height: 150px;
+  width: 150px;
+}
+#current .button-container .button {
+  height: 100%;
+  background-color: orangered;
+  border-radius: 50%;
+  display: flex;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+}
+#current .button-container .button p {
+  margin: 0;
+  color: white;
+  font-family: sans-serif;
+  font-style: italic;
+  font-size: 2rem;
+}
+
+#palette {
+  padding: 40px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+#palette .pin {
+  margin: 10px;
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=styles.css.map */
