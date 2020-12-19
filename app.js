@@ -11,6 +11,7 @@ const COLOR_POOL = MASTER_COLOR_POOL.slice(0, numberOfColors);
 
 let solution = []; // Global
 let frozen = false; // Global
+let guessCount = 0; // Global
 
 function buildPalette() {
     // Build palette based on color pool
@@ -39,6 +40,7 @@ function buildSolution() {
             blockDuplicates = true;
         }
     }
+    guessCount = 0;
     console.log(solution);
 }
 buildSolution();
@@ -79,6 +81,7 @@ function freeze() {
 }
 
 function detonate() {
+    // TODO on small screens confetti floods quickly
     var end = Date.now() + (10 * 1000);
 
     var colors = [
@@ -121,6 +124,7 @@ function detonate() {
 
 function verify() {
     let guess = [];
+    guessCount++;
     let error = false;
     $("#current .pin-container").children(".pin").each(function () {
         let color = $(this).attr("data-color");
@@ -174,7 +178,7 @@ function verify() {
             detonate();
             Swal.fire({
                 icon: "success",
-                title: "You win!",
+                title: `You won in ${guessCount} guesses!`,
                 text: "Do you want to reset and play again?",
                 showConfirmButton: true,
                 confirmButtonText: "Yes!",
