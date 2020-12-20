@@ -82,7 +82,7 @@ function freeze() {
 
 function detonate() {
     // TODO on small screens confetti floods quickly
-    var end = Date.now() + (10 * 1000);
+    var end = Date.now() + (3 * 1000);
 
     var colors = [
         '#26ccff',
@@ -93,6 +93,8 @@ function detonate() {
         '#ffa62d',
         '#ff36ff'
     ];
+
+    // TODO on smaller screens, single confetti source
 
     (function frame() {
         confetti({
