@@ -110,8 +110,8 @@ function freeze() {
 function detonate() {
     console.log("Confetti");
 
-    // TODO on small screens confetti floods quickly
-    var end = Date.now() + (3 * 1000);
+    let h = $(window).height();
+    let w = $(window).width();
 
     var colors = [
         '#26ccff',
@@ -123,34 +123,58 @@ function detonate() {
         '#ff36ff'
     ];
 
-    // TODO on smaller screens, single confetti source
+    if (w < 900) {
+        var end = Date.now() + (2 * 1000);
 
-    (function frame() {
-        confetti({
-            particleCount: 7,
-            angle: 40,
-            spread: 55,
-            startVelocity: 75,
-            decay: 0.85,
-            origin: { x: 0 },
-            colors: colors,
-            zIndex: 10000,
-        });
-        confetti({
-            particleCount: 7,
-            angle: 140,
-            spread: 55,
-            startVelocity: 75,
-            decay: 0.85,
-            origin: { x: 1 },
-            colors: colors,
-            zIndex: 10000,
-        });
+        (function frame() {
+            confetti({
+                particleCount: 17,
+                angle: 270,
+                spread: 80,
+                startVelocity: 45,
+                decay: 0.9,
+                gravity: 1,
+                origin: { x: 0.5, y: -0.25 },
+                colors: colors,
+                zIndex: 10000,
+            });
 
-        if (Date.now() < end) {
-            requestAnimationFrame(frame);
-        }
-    }());
+            if (Date.now() < end) {
+                requestAnimationFrame(frame);
+            }
+        }());
+    } else {
+        var end = Date.now() + (1.25 * 1000);
+
+        (function frame() {
+            confetti({
+                particleCount: 17,
+                angle: 40,
+                spread: 80,
+                startVelocity: 70,
+                decay: 0.9,
+                gravity: 0.9,
+                origin: { x: -0.15, y: 0.6 },
+                colors: colors,
+                zIndex: 10000,
+            });
+            confetti({
+                particleCount: 17,
+                angle: 140,
+                spread: 80,
+                startVelocity: 70,
+                decay: 0.9,
+                gravity: 0.9,
+                origin: { x: 1.15, y: 0.6 },
+                colors: colors,
+                zIndex: 10000,
+            });
+
+            if (Date.now() < end) {
+                requestAnimationFrame(frame);
+            }
+        }());
+    }
 }
 
 function verify() {

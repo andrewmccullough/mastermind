@@ -213,6 +213,7 @@ html body .pin.pink {
 
 #gamebox.frozen * {
   cursor: default !important;
+  pointer-events: none;
 }
 
 /*# sourceMappingURL=styles.css.map */
