@@ -193,7 +193,7 @@ function verify() {
                 icon: "error",
                 title: "Choose a color for each pin",
                 showConfirmButton: false,
-                timer: 2000
+                timer: 1.75 * 1000
             })
             error = true;
             return false;
@@ -318,7 +318,7 @@ function setNumberOfColors() {
         icon: "question",
         input: "range",
         inputAttributes: {
-            min: numberOfPins, // TODO remove
+            min: 2,
             max: MASTER_COLOR_POOL.length,
             step: 1
         },
@@ -349,7 +349,7 @@ function setNumberOfPins() {
         input: "range",
         inputAttributes: {
             min: 2,
-            max: numberOfColors, // TODO remove
+            max: 10,
             step: 1
         },
         inputValue: numberOfPins
