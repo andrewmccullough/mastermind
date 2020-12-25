@@ -359,7 +359,9 @@ $("#palette").on("click", ".pin", function(event) {
 })
 
 // Allow user to select each pin, even out of order
-$("#current .pin-container .pin").click(function() {
+$("#current .pin-container").on("click", ".pin", function (event) {
+    event.preventDefault();
+
     if (!frozen) {
         console.log("Pin selected by user");
 
