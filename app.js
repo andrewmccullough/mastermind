@@ -38,8 +38,16 @@ function buildSolution() {
         colorCounts[elem] = 0;
     })
 
+    // TODO duplicates will be required if number of pins exceeds number of colors
+
+    let blockDuplicates = false;
+    let duplicateWeight = Math.random();
+    if (duplicateWeight < 0.65) {
+        console.log("Overriding duplicates");
+        blockDuplicates = true;
+    }
+
     solution = [];
-    let blockDuplicates = false; // TODO further weight against duplicates
     while (solution.length < numberOfPins) {
         let color = color_pool[Math.floor(Math.random() * color_pool.length)];
         let colorCount = colorCounts[color];
@@ -161,7 +169,7 @@ function verify() {
                 showConfirmButton: false,
                 timer: 2000
             })
-            error = true; // TODO this is an ugly workaround
+            error = true;
             return false;
         } else if (!color_pool.includes(color)) {
             console.log("Invalid color");
@@ -284,7 +292,7 @@ function setNumberOfColors() {
         icon: "question",
         input: "range",
         inputAttributes: {
-            min: 2,
+            min: numberOfPins, // TODO remove
             max: MASTER_COLOR_POOL.length,
             step: 1
         },
@@ -315,7 +323,7 @@ function setNumberOfPins() {
         input: "range",
         inputAttributes: {
             min: 2,
-            max: 8,
+            max: numberOfColors, // TODO remove
             step: 1
         },
         inputValue: numberOfPins

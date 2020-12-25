@@ -191,8 +191,13 @@ html body .pin.pink {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-family: sans-serif;
+}
+#options h3 {
+  margin: 15px 0;
 }
 #options div {
+  padding: 10px 0;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -201,7 +206,9 @@ html body .pin.pink {
 }
 #options div p {
   cursor: pointer;
-  padding: 20px;
+  padding: 10px;
+  margin: 0 10px;
+  border: 2px solid black;
 }
 
 #gamebox.frozen * {
