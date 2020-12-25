@@ -38,25 +38,29 @@ function buildSolution() {
         colorCounts[elem] = 0;
     })
 
-    // TODO duplicates will be required if number of pins exceeds number of colors
+    let minimumDuplicates = Math.max(0, numberOfPins - numberOfColors);
+    let allowableDuplicates = minimumDuplicates;
 
-    let blockDuplicates = false;
     let duplicateWeight = Math.random();
-    if (duplicateWeight < 0.65) {
-        console.log("Overriding duplicates");
-        blockDuplicates = true;
+    if (duplicateWeight > 0.6) {
+        allowableDuplicates = minimumDuplicates + 1;
     }
+
+    let duplicateCount = 0;
+
+    console.log(`${allowableDuplicates} duplicates allowed`);
 
     solution = [];
     while (solution.length < numberOfPins) {
         let color = color_pool[Math.floor(Math.random() * color_pool.length)];
         let colorCount = colorCounts[color];
-        if (!blockDuplicates && colorCount < 2 || blockDuplicates && colorCount < 1) {
+
+        if (colorCount == 0 || colorCount == 1 && duplicateCount < allowableDuplicates) {
             solution.push([color, false]);
+            if (colorCount == 1) {
+                duplicateCount++;
+            }
             colorCounts[color]++;
-        }
-        if (colorCounts[color] === 2) {
-            blockDuplicates = true;
         }
     }
     guessCount = 0;
@@ -110,10 +114,7 @@ function freeze() {
 function detonate() {
     console.log("Confetti");
 
-    let h = $(window).height();
-    let w = $(window).width();
-
-    var colors = [
+    const colors = [
         '#26ccff',
         '#a25afd',
         '#ff5e7e',
@@ -122,9 +123,10 @@ function detonate() {
         '#ffa62d',
         '#ff36ff'
     ];
+    let end;
 
-    if (w < 900) {
-        var end = Date.now() + (2 * 1000);
+    if ($(window).width() < 900) {
+        end = Date.now() + (2 * 1000);
 
         (function frame() {
             confetti({
@@ -144,7 +146,7 @@ function detonate() {
             }
         }());
     } else {
-        var end = Date.now() + (1.25 * 1000);
+        end = Date.now() + (1.25 * 1000);
 
         (function frame() {
             confetti({
