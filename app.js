@@ -1,36 +1,47 @@
-const MASTER_COLOR_POOL = ["red", "orange", "yellow", "green", "cyan", "blue", "purple", "pink"];
+const MASTER_COLOR_POOL = ["red", "orange", "yellow", "green", "cyan", "blue", "purple", "black", "pink"];
 
 /*
 USER SETTINGS
  */
-let numberOfColors = 6;
-let numberOfPins = 4;
-// TODO customize options
+let numberOfColors = 6; // Default, Global
+let numberOfPins = 4; // Default, Global
 
-const COLOR_POOL = MASTER_COLOR_POOL.slice(0, numberOfColors);
-
+let color_pool = []; // Global
 let solution = []; // Global
 let frozen = false; // Global
 let guessCount = 0; // Global
 
+function buildColorPool() {
+    console.log("Building color pool");
+
+    color_pool = MASTER_COLOR_POOL.slice(0, numberOfColors);
+    $("#options #possible-colors span").text(numberOfColors);
+    buildPalette();
+}
+buildColorPool();
+
 function buildPalette() {
-    // Build palette based on color pool
-    COLOR_POOL.forEach(function (elem) {
+    console.log("Building palette")
+
+    $("#palette").html("");
+    color_pool.forEach(function (elem) {
         $("#palette").append(`<div class="pin ${elem}" data-color="${elem}"></div>`);
     })
+    buildSolution();
 }
-buildPalette();
 
 function buildSolution() {
+    console.log("Building new solution")
+
     let colorCounts = {};
-    COLOR_POOL.forEach(function(elem) {
+    color_pool.forEach(function(elem) {
         colorCounts[elem] = 0;
     })
 
     solution = [];
     let blockDuplicates = false; // TODO further weight against duplicates
     while (solution.length < numberOfPins) {
-        let color = COLOR_POOL[Math.floor(Math.random() * COLOR_POOL.length)];
+        let color = color_pool[Math.floor(Math.random() * color_pool.length)];
         let colorCount = colorCounts[color];
         if (!blockDuplicates && colorCount < 2 || blockDuplicates && colorCount < 1) {
             solution.push([color, false]);
@@ -42,14 +53,20 @@ function buildSolution() {
     }
     guessCount = 0;
     console.log(solution);
+
+    $("#options #pins-in-solution span").text(numberOfPins);
+    buildPins();
 }
-buildSolution();
 
 function clearPrevious() {
+    console.log("Clearing previous guesses");
+
     $("#guesses").html("");
 }
 
 function resetGuess() {
+    console.log("Reset current guess builder");
+
     $("#current .pin-container").children().each(function () {
         $(this).removeClass();
         $(this).addClass("pin");
@@ -76,11 +93,15 @@ function shuffle(array) {
 }
 
 function freeze() {
+    console.log("Freezing gameplay");
+
     frozen = true;
     $("#gamebox").addClass("frozen");
 }
 
 function detonate() {
+    console.log("Confetti");
+
     // TODO on small screens confetti floods quickly
     var end = Date.now() + (3 * 1000);
 
@@ -125,6 +146,8 @@ function detonate() {
 }
 
 function verify() {
+    console.log("Checking guess");
+
     let guess = [];
     guessCount++;
     let error = false;
@@ -140,7 +163,7 @@ function verify() {
             })
             error = true; // TODO this is an ugly workaround
             return false;
-        } else if (!COLOR_POOL.includes(color)) {
+        } else if (!color_pool.includes(color)) {
             console.log("Invalid color");
             error = true;
             return false;
@@ -241,17 +264,80 @@ function verify() {
 }
 
 function buildPins() {
+    $("#current .pin-container").html("");
     // Create empty pins
     solution.forEach(function () {
         $("#current .pin-container").append(`<div class="pin"></div>`);
     })
     resetGuess();
 }
-buildPins();
 
 /* LISTENERS */
+
+// Change number of possible colors
+function setNumberOfColors() {
+    console.log("Changing number of colors");
+
+    Swal.fire({
+        title: "Possible colors",
+        text: "How many colors do you want to play with?",
+        icon: "question",
+        input: "range",
+        inputAttributes: {
+            min: 2,
+            max: MASTER_COLOR_POOL.length,
+            step: 1
+        },
+        inputValue: numberOfColors
+    }).then((result) => {
+        if (result.isConfirmed && result.value != numberOfColors) {
+            numberOfColors = result.value;
+            clearPrevious();
+            resetGuess();
+            buildColorPool();
+        }
+    })
+}
+$("#options #possible-colors").click(function () {
+    if (!frozen) {
+        setNumberOfColors();
+    }
+})
+
+// Change number of pins in solution
+function setNumberOfPins() {
+    console.log("Change number of pins");
+
+    Swal.fire({
+        title: "Pins in solution",
+        text: "How many pins do you want in the solution?",
+        icon: "question",
+        input: "range",
+        inputAttributes: {
+            min: 2,
+            max: 8,
+            step: 1
+        },
+        inputValue: numberOfPins
+    }).then((result) => {
+        if (result.isConfirmed && result.value != numberOfPins) {
+            numberOfPins = result.value;
+            clearPrevious();
+            resetGuess();
+            buildSolution();
+        }
+    })
+}
+$("#options #pins-in-solution").click(function () {
+    if (!frozen) {
+        setNumberOfPins();
+    }
+})
+
 // User selects color from palette
-$("#palette .pin").click(function() {
+$("#palette").on("click", ".pin", function(event) {
+    event.preventDefault();
+
     if (!frozen) {
         console.log("Palette color selected by user")
 
