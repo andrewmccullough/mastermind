@@ -114,7 +114,7 @@ html body .pin.pink {
   background-color: orangered;
 }
 #guesses .guess .hint-container .loose {
-  background-color: #c1c4c0;
+  background-color: white;
 }
 #guesses .guess:last-child {
   margin-bottom: 50px;

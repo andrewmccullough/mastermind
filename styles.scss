@@ -126,7 +126,7 @@ html {
 				background-color: orangered;
 			}
 			.loose {
-				background-color: $background;
+				background-color: white;
 			}
 		}
 	}
@@ -168,6 +168,7 @@ html {
 		}
 	}
 
+	// TODO : better button interaction
 	.button-container {
 		margin: 40px 0 0 0;
 		height: 150px;
